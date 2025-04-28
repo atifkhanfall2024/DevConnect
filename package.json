@@ -1,0 +1,23 @@
+{
+  "name": "devconnect",
+  "version": "1.0.0",
+  "description": "This is MERN stack app",
+  "main": "index.js",
+  "scripts": {
+    "start":"node src/server.js",
+    "dev": "npx nodemon src/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atifkhanfall2024/DevConnect.git"
+  },
+  "author": "Muhammad Atif khan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atifkhanfall2024/DevConnect/issues"
+  },
+  "homepage": "https://github.com/atifkhanfall2024/DevConnect#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
