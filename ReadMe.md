@@ -69,4 +69,29 @@
 
  # Routing and Request handlers
 
- 
+ ### playing with routing 
+ . Also we have nodemodule file which is too large when we initalize git repository then alot of files come this files is actually comes from nodemodules so we donot need it to push it into github so we use gitignore and write inside it node_modules then node modules will be not pushed into github also every files that we write in gitignore will be ignored 
+
+ ## Routing 
+ . As we see that the route initally when we start from / and come request to that server then it will definitely show dashboard but after this if we write /hello or any thing this will not working bcz when code execute then it will start from 1 line so when we give / then this will match one by one route but first it see / then thats why after slash everything come this will not work so its solution it that we need to change its order because order will matter alot .
+
+
+ ## Advance Routing concept 
+
+ ## Dyanamic Routing 
+ . this will use to give dynamic information to url for example 
+ . localhost:5000/user?userid=101&pass=1234 => then to see this in console we wrote simply req.query
+
+ ### But 
+ . localhost:5000/user/101/atifkhan/1234 and see this in console we write it like app.get("/user/:id/:name/:passward"(req,res)=>{
+    req.params
+ })
+
+ ## Difference in req.query and  req.params
+.Params used for specific and query used for filter all same things.
+ . this is for params
+ :id → One specific item (e.g., /user/101)
+.this is for query
+?search=value → Filter/search many items (e.g., /users?name=Atif)
+
+
