@@ -8,8 +8,23 @@ const app = express()
 
  app.use('/dashboard' ,userAuth ,Auth )
 
+ // error handling 
+ // i generate random error 
+ /* app.use('/' , (err,req,res,next)=>{
+    if(err){
+      res.status(402).send('Something went wrong')
+    }
+ })  */
  app.get('/dashboard/auth' , (req,res)=>{
-    res.send('Welcome to Dashboard')
+    // here i generating random error
+    try{
+        throw new Error('wrftgghjk')
+        res.send('Welcome to Dashboard')
+    }
+    catch(err){
+        res.status(500).send('Something went wrong please contact with our team ')
+    }
+    
  })
  app.get('/dashboard/user' , (req,res)=>{
     res.send('Welcome to Dashboard of user ')

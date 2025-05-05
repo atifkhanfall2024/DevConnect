@@ -98,3 +98,6 @@
 # Middleware 
 <p>used for code reusabitlity  , easy to manage  , performance  , security and modularity </p>
 <p>Learn multiple route handling </p>
+
+# Error Handling
+<p>error handling using try catch and also throw new Error('') </p>
