@@ -1,44 +1,30 @@
-const express = require('express')
+const express = require('express');
+const { AuthAdmin ,userAuth , Auth } = require('./middlewares/Adminauth');
 
 const app = express()
        app.use(express.json());
 
-       // dynaimc routing
-       // getting by query 
-    app.get("/users" , (req,res)=>{
-        res.send(req.query)
-    })  
+       // for dashboard
 
-    app.post("/users/:id/:name/:email" , (req,res)=>{
-        console.log(req.params);
-        res.send('Data push successfully to database')
-    })
+ app.use('/dashboard' ,userAuth ,Auth )
 
+ app.get('/dashboard/auth' , (req,res)=>{
+    res.send('Welcome to Dashboard')
+ })
+ app.get('/dashboard/user' , (req,res)=>{
+    res.send('Welcome to Dashboard of user ')
+ })
+ 
 
-     app.get('/' , (req , res)=>{
-        res.send("Hello from dashboard")
-     })
-     app.get("/Admin" , (req , res)=>{
-        res.send('Hello from Admin')
-       // console.log(req.url);
-     })
-
-    app.get('/user' , (req,res)=>{
-        res.send({
-            'name':"Muhammad Atif khan",
-            "email":'abc@gmail.com'
-        })
-    })
-
-  
+  app.get('/admin/getdata' ,AuthAdmin ,(req,res)=>{
+    
+    res.send('Data send successfully')
+  })
+  app.get('/admin/update' ,AuthAdmin, (req,res)=>{
+    res.send('update the data')
+  })
+        
    
-
-app.post("/home" , (req ,res)=>{
-    console.log(req.body);
-    res.send(req.body)
-})
-
-
 app.listen(5000 , ()=>{
     console.log("server is starting.....");
 })

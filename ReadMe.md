@@ -95,3 +95,6 @@
 ?search=value → Filter/search many items (e.g., /users?name=Atif)
 
 
+# Middleware 
+<p>used for code reusabitlity  , easy to manage  , performance  , security and modularity </p>
+<p>Learn multiple route handling </p>
