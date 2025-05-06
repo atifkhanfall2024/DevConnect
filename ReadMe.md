@@ -101,3 +101,8 @@
 
 # Error Handling
 <p>error handling using try catch and also throw new Error('') </p>
+
+# Database , Schema , Models Mongoose
+
+## Database
+<P>Data base is used to store the data in organized order </p>

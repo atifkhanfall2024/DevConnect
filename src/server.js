@@ -18,7 +18,7 @@ const app = express()
  app.get('/dashboard/auth' , (req,res)=>{
     // here i generating random error
     try{
-        throw new Error('wrftgghjk')
+       // throw new Error('wrftgghjk')
         res.send('Welcome to Dashboard')
     }
     catch(err){
