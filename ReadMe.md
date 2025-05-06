@@ -106,3 +106,9 @@
 
 ## Database
 <P>Data base is used to store the data in organized order </p>
+
+## Schema
+<p>is the way by which we define a collection </p>
+
+## Model 
+<p>Creating model to intreacting with database or schema </p>
