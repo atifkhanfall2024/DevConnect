@@ -112,3 +112,12 @@
 
 ## Model 
 <p>Creating model to intreacting with database or schema </p>
+
+# Diving into Api's
+
+<p> we are already make static apis now make a dynamic api for example a person login from frontend and my server handle its request using req.body but when we console this req.body then undefined come at console this is bcz we need to use middle ware here app.use(express.json()) this is used to read the json data from user side </p>
+
+<p>Supoose i want to find a user account by its specific parameter like by email then we use model.findOne(email:req.body.email) </p>
+
+## difference in find() and findOne()
+<p>Both work same but if if use find() and find email if multiple users have same email then it show all email data pf user but findOne() show only one </p>
