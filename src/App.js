@@ -54,6 +54,62 @@ app.get('/Login' ,async (req,res)=>{
     }
 })
 
+// get all users from data base 
+app.get('/allusers' , async(req,res)=>{
+
+   try{
+    const Allusers = await Data.find({})
+    if(Allusers.length===0){
+        res.send('NO user is in database')
+    }else{
+        res.send(Allusers)  
+    }
+   
+   }catch(err){
+    res.send('Error occured !')
+   }
+})
+
+// creating a delete api 
+
+app.delete('/deleteuser', async(req,res)=>{
+
+    const email = req.body.email
+    
+    try{
+        const Deleteapi = await Data.deleteMany({email})
+        console.log(Deleteapi);
+       
+        if(Deleteapi.length===0){
+            res.send('No user in database')
+        }else{
+            res.send('User delete successfully')
+        }
+    }catch(err){
+        res.send('warning 👽 error occured')
+    }
+})
+
+// updating api
+// we need to delete or update user by id bcz its more unique
+app.patch('/update' , async(req,res)=>{
+
+     const email = req.body.email
+     const data = req.body
+// in update api first filter then update the data
+     try{
+        const update = await Data.findOneAndUpdate({email:email} , data ,{new:true})
+        console.log(update);
+        if(update.length !== 0){
+            res.send('user update successfully')
+        }else{
+            res.send('No user found')
+        }
+     }catch(err){
+        res.send('Error occured ')
+     }
+})
+
 ConnectDb().then(()=>{
     console.log('Connection is success');
     app.listen(3000 , ()=>{

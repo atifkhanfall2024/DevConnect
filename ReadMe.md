@@ -121,3 +121,12 @@
 
 ## difference in find() and findOne()
 <p>Both work same but if if use find() and find email if multiple users have same email then it show all email data pf user but findOne() show only one </p>
+
+## Delete Api
+<p>we can delete api by using deleteOne()  , deleteMany() , findbyIdand delete() , findoneanddelete() these all using first filter the data then delete the data</p>
+
+## UpdateApi
+<P>also i done an update the data of user by differenct methods</p>
+
+## important
+<p>Its important to note that we should need to update or delete the data of user by id bcz id has unique </p>
