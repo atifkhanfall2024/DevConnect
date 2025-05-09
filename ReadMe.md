@@ -130,3 +130,32 @@
 
 ## important
 <p>Its important to note that we should need to update or delete the data of user by id bcz id has unique </p>
+
+
+# Data sanitization and schema validation 
+<p>Schema validation is so important and crucial part </p>
+<p>We need data validation mostly in post , put/patch bcz using that methods we update or push the data into database</p>
+
+## required
+<p>this check is used to required the data mandatory becuase if some one write require with field and miss that filed to push or update then it throw an error </p>
+
+## Unique
+<p>this field is used to handle duplicate enterence of data into database </p>
+
+## default
+<p>when i used default value then when a user does not enter something then this default value is come </p>
+
+## Trim 
+<p> trim is used to remove spaces </p>
+
+## Lowerspace
+<p>is used when its true it convert upperspace latter to lowercase</p>
+
+## maxlength & minlength vs min & max
+<p>maximum and minimum length is used for string data and min and max is used for max data</p>
+
+## How we make our own custom function
+<p> for example inside in gender i write that validator function validate(vlaue) it take a value and then check a condition that if(![male , female , other].includes.value) mean that if that genders is not present then throw an error</p>
+
+## enum
+<P> enum and validator work same but enum used for fixed list while validator used for custom </p>

@@ -27,7 +27,7 @@ try{
     res.send('User Login successfully')
 }
 catch(err){
-res.status(500).send('Your Data is against Schema')
+res.status(500).send('Your Data is against Schema' + err.message)
 }
   
 })
@@ -98,8 +98,9 @@ app.patch('/update' , async(req,res)=>{
      const data = req.body
 // in update api first filter then update the data
      try{
-        const update = await Data.findOneAndUpdate({email:email} , data ,{new:true})
-        console.log(update);
+        const update = await Data.findOneAndUpdate({email:email} , data ,{new:true ,  runValidators:true})
+       // console.log(update);
+      
         if(update.length !== 0){
             res.send('user update successfully')
         }else{
