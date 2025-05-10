@@ -1,4 +1,5 @@
 const Mongoose  = require('mongoose')
+const validator = require('validator')
 
 const userSchema = new Mongoose.Schema({
     firstName:{
@@ -13,13 +14,19 @@ const userSchema = new Mongoose.Schema({
         required:[true , 'Email is mandatory'],
         unique:true,
         lowercase:true,
-        trim:true
+        trim:true,
+        validate(value){
+          if(!validator.isEmail(value)){
+            throw new Error("Enter valid email "+value)
+          }
+        }
     },
     age: {
   type: Number,
   required: true,
   min:18,
   max:60,
+  trim:true
  
 },
 gender:{
@@ -31,19 +38,33 @@ type:String,
     }
   }
 },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-      required: [true, 'Age is required'],
-    },
+  
     photo:{
         type:String,
-        default:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScSmKFDsUAEqzwsdUpQPbl_sME6R_zQ0Zlxg&s'
+        trim:true,
+        default:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScSmKFDsUAEqzwsdUpQPbl_sME6R_zQ0Zlxg&s',
+        validate(value){
+          if(! validator.isURL(value)){
+            throw new Error("URL is incorrect"+value)
+          }
+        }
     },
     about:{
         type:String,
-        default:'What is in your mind ?'
+        default:'What is in your mind ?',
+        maxlength:200,
+        minlength:10,
+        trim:true
+    },
+    skills:{
+      type:[String],
+    validate(value){
+       const length =  value.length <= 5;
+       if(!length){
+          throw new Error("Error you must enter 5 or less than 5 skills")
+       }
     }
-})
+    }
+},{timestamps:true})
 
 module.exports = Mongoose.model('User' , userSchema)

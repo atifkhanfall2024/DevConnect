@@ -159,3 +159,14 @@
 
 ## enum
 <P> enum and validator work same but enum used for fixed list while validator used for custom </p>
+
+## timestamp
+<p>In time stamp it give to us when to create a document and when to update a document its a good practice to write it</p>
+
+# Important 
+<p>supoose i want that when a user signup then he will not able to update its email and name and its remain fetaure can update like photo , gender ,age etc so we use api level validatioon </p>
+
+<p>i use logic for it objects.keys(data) will pick all the values and then .every check ti with every value of update array if not present in update array then give me error </p>
+
+## using of npm validator 
+<p> it have a lot of function suppose if some one enter invalid email address so we use it inside schema validate function and use loigv to handle that if validator.isemail(value) is not then throw error</p>

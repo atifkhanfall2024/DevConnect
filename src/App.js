@@ -92,22 +92,31 @@ app.delete('/deleteuser', async(req,res)=>{
 
 // updating api
 // we need to delete or update user by id bcz its more unique
-app.patch('/update' , async(req,res)=>{
+app.patch('/update/:id' , async(req,res)=>{
 
-     const email = req.body.email
+     const id = req.params.id
      const data = req.body
 // in update api first filter then update the data
      try{
-        const update = await Data.findOneAndUpdate({email:email} , data ,{new:true ,  runValidators:true})
+        const update = await Data.findByIdAndUpdate({_id:id} , data ,{new:true ,  runValidators:true})
        // console.log(update);
-      
+      //api level validation
+
+       const updateAllowed = ["age" , "gender", 'photo' , 'about' ,'skills']
+
+       const IsUpdate = Object.keys(data).every((key)=>updateAllowed.includes(key))
+
+         if(!IsUpdate){
+            throw new Error("Not avalible update")
+         }
+
         if(update.length !== 0){
             res.send('user update successfully')
         }else{
             res.send('No user found')
         }
      }catch(err){
-        res.send('Error occured ')
+        res.send('Error occured '+err.message)
      }
 })
 
