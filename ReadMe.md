@@ -170,3 +170,17 @@
 
 ## using of npm validator 
 <p> it have a lot of function suppose if some one enter invalid email address so we use it inside schema validate function and use loigv to handle that if validator.isemail(value) is not then throw error</p>
+
+# Encryption of passward
+<p>supoose if user want to sign in and he enter some milicious data or attacker attack and enter some unexpected data then what we will do ? </p>
+
+## First validation of our schema 
+<p>we use to validate our data that come from user side using npm package of npm i validator </p>
+<p>then we use to make a folder with utails name and use logic inside for validation that if then user cannot enter name email etc then donot go further </p>
+
+## second is encryption of passward using bcrypt 
+<p>so i use npm i bycrypt for encryption of passward and handle it with async await bcz it return a promise </p>
+<p>then i update the new instance of user which check the data against schema which is come form req.body and mention those field which is inside in schema extract those fields this is bcz when some one added extra fields in postman then that data cannot goes to database</p>
+
+## using bcrypt for login 
+<p>i used bcrypt for login bcrpt.compare but first i find an email if present then use compare function to compare our encrypt passward with an plaintext passward </p>

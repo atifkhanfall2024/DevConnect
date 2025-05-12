@@ -7,7 +7,8 @@ const userSchema = new Mongoose.Schema({
         required:true,
         trim:true,
         minlength:4,
-        maxlength:30
+        maxlength:30,
+       
     },
     email:{
         type:String,
@@ -21,6 +22,18 @@ const userSchema = new Mongoose.Schema({
           }
         }
     },
+   passward: {
+    type:String,
+    required:true,
+    trim:true,
+    maxlength:100,
+    minlength:5,
+    validate(value){
+      if(!validator.isStrongPassword(value)){
+        throw new Error('Passward should be AlphaNumeric')
+      }
+    }
+   },
     age: {
   type: Number,
   required: true,

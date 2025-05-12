@@ -1,6 +1,8 @@
 const express = require('express')
 const ConnectDb =  require('./config/Db')
 const Data = require('./models/user')
+const bcrypt = require('bcrypt')
+const {IsValid , encrypt} = require('./utils/validation')
 
 const app = express()
 
@@ -10,27 +12,63 @@ app.use(express.json())
 
 // suppose i need to login in a websites
 
-app.post('/login' , async(req,res)=>{
+app.post('/signup' , async(req,res)=>{
+try{
+    // to validation first we need to valid the user data
+   IsValid(req)
+   const result = await encrypt({passward:req.body.passward})
+  // console.log(result);
+   const {firstName , email  , age , gender , photo , about , skills } = req.body
+ 
+    const user = new Data({
+      firstName,
+      email ,
+      passward:result ,
+      age,
+      gender,
+      photo,
+      about,
+      skills
 
-    // handling dynamic api 
-
-
-    // with model we create new instances 
-
-    const user = new Data(req.body) 
+    }) 
 
     // we also know here that user.save will return a promise so we need to handle it
-try{
+
     await  user.save()
    
 
-    res.send('User Login successfully')
+    res.send('User Signup successfully')
 }
 catch(err){
 res.status(500).send('Your Data is against Schema' + err.message)
 }
   
 })
+
+// now i wanna to make a login api that if the user want to login with an email and passward
+
+app.post('/login' , async(req,res)=>{
+    try{
+       const {email , passward} = req.body
+
+       // findone return the whole document 
+        const login = await Data.findOne({email:email})
+       // console.log(login.passward);
+        if(!login){
+            throw new Error('invalid cradentails !')
+        }
+
+        const user = await bcrypt.compare(passward , login.passward)
+        if(!user){
+            throw new Error('invalid cradentails !')
+        }
+
+        res.send('Login successfull !')
+    }catch(err){
+        res.status(500).send('Error Occured : '+err.message)
+    }
+})
+
 
 // supoose i check a specific user by email
 
