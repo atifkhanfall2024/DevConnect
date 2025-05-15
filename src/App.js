@@ -3,12 +3,16 @@ const ConnectDb =  require('./config/Db')
 const Data = require('./models/user')
 const bcrypt = require('bcrypt')
 const {IsValid , encrypt} = require('./utils/validation')
+const cook = require('cookie-parser')
+const jwt = require('jsonwebtoken')
 
 const app = express()
 
 // here we need a middle ware to reading the json data 
 
 app.use(express.json())
+// middleware for cookies
+app.use(cook())
 
 // suppose i need to login in a websites
 
@@ -63,13 +67,40 @@ app.post('/login' , async(req,res)=>{
             throw new Error('invalid cradentails !')
         }
 
+        // here we need that when a user login then create an jwt token by server which is wrap inside token
+        
+        const token = await jwt.sign({id:login._id} , "DevConnect@$!")
+
+          // now the above token is wrap inside cookies
+        res.cookie('token',token)
         res.send('Login successfull !')
     }catch(err){
         res.status(500).send('Error Occured : '+err.message)
     }
 })
 
+// suppose if user want to go to /profile after validation 
 
+app.get('/profile' , async(req,res)=>{
+    try{
+           const cookie = req.cookies
+           const {token} = cookie
+           if(!token){
+            throw new Error(' Token not found ')
+           }
+           // logic for validation
+           // now if someone want to see our profile then he send the request with cookies+api when it validate then server give data 
+           const data = await jwt.verify(token , "DevConnect@$!")
+           
+           const user = await Data.findById(data.id)
+          if(!user){
+            throw new Error('No user found')
+          }
+           res.send(id)
+    }catch(err){
+        res.status(500).send('Error occured ' +err.message)
+    }
+})
 // supoose i check a specific user by email
 
 app.get('/Login' ,async (req,res)=>{

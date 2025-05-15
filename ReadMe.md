@@ -184,3 +184,5 @@
 
 ## using bcrypt for login 
 <p>i used bcrypt for login bcrpt.compare but first i find an email if present then use compare function to compare our encrypt passward with an plaintext passward </p>
+
+# Authentication , jwt and cookies
