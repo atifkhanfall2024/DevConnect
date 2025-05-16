@@ -186,3 +186,10 @@
 <p>i used bcrypt for login bcrpt.compare but first i find an email if present then use compare function to compare our encrypt passward with an plaintext passward </p>
 
 # Authentication , jwt and cookies
+  - on login make validaion after valid generate jwt token and wrap it into inside cookies
+  - make an api /proflie
+  - on every api call first we need to validate the token
+  - for validation we make middleware
+  - then after valid the user user can get data from server or update it or sending connection request
+  - also use token expires when the token expire then user must need to login
+  - work with jwt expire and also cookies expire

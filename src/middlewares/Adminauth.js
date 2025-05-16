@@ -1,32 +1,35 @@
-const AuthAdmin =  (req,res ,next)=>{
-    const token = 12345
-    const isAdmin = token===12345
-    if(!isAdmin)
-    {
-        res.status(401).send('unauthorized Access')
-    }
-    else{
-        console.log('Auth is checked');
-        next()
-    }
-  }
+const jwt = require('jsonwebtoken')
+const User = require('../models/user')
+const Parser = require('cookie-parser')
+require('dotenv').config(); 
+const express=  require('express')
+const app = express()
 
-  const Auth = (req,res,next)=>{
-    const tokens = 'admin123'
-    const checkauth = tokens === req.query.token
-    if(!checkauth){
-        res.status(401).send('Unable to access dashboard')
-    }
-    else{
-        console.log('Your token is valid');
-        next()
-    }
-  }
+app.use(Parser())
+// for login 
+const ValidateToken  = async(req,res,next)=>{
+  try{
+   const cookie = req.cookies
+   
+   const {token} = cookie
+   if(!token){
+    throw new Error('Token is Invalid')
+   }
 
-  const userAuth = (req,res,next)=>{
-    const time =  new Date().toLocaleString();
-   console.log(`user access to dashboard at ${time}`);
-    next()
-  
+   // if token is present then verfiy it 
+
+   const verfiy = await jwt.verify(token, process.env.PrivateKey)
+ 
+
+   const user = await User.findById(verfiy.id)
+   if(!user){
+    throw new Error('User not found')
+   }
+   req.user = user
+   next()
   }
-  module.exports = {AuthAdmin ,userAuth ,Auth}
+  catch(err){
+    res.send("Error " +err.message)
+  }
+}
+module.exports = {ValidateToken}

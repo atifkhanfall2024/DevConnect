@@ -5,6 +5,8 @@ const bcrypt = require('bcrypt')
 const {IsValid , encrypt} = require('./utils/validation')
 const cook = require('cookie-parser')
 const jwt = require('jsonwebtoken')
+const {ValidateToken} = require('./middlewares/Adminauth')
+require('dotenv').config(); 
 
 const app = express()
 
@@ -69,11 +71,11 @@ app.post('/login' , async(req,res)=>{
 
         // here we need that when a user login then create an jwt token by server which is wrap inside token
         
-        const token = await jwt.sign({id:login._id} , "DevConnect@$!")
+        const token = await jwt.sign({id:login._id} , process.env.PrivateKey , {expiresIn:'7d'})
 
           // now the above token is wrap inside cookies
-        res.cookie('token',token)
-        res.send('Login successfull !')
+        res.cookie('token',token , { expires: new Date(Date.now() + 24 * 3600000)}) // cookies will changes with in 24 hours
+        res.send(login.firstName   +  '   Login successfull ! ')
     }catch(err){
         res.status(500).send('Error Occured : '+err.message)
     }
@@ -81,27 +83,27 @@ app.post('/login' , async(req,res)=>{
 
 // suppose if user want to go to /profile after validation 
 
-app.get('/profile' , async(req,res)=>{
+app.get('/profile'  , ValidateToken , async(req,res)=>{
     try{
-           const cookie = req.cookies
-           const {token} = cookie
-           if(!token){
-            throw new Error(' Token not found ')
-           }
-           // logic for validation
-           // now if someone want to see our profile then he send the request with cookies+api when it validate then server give data 
-           const data = await jwt.verify(token , "DevConnect@$!")
-           
-           const user = await Data.findById(data.id)
-          if(!user){
-            throw new Error('No user found')
-          }
-           res.send(id)
+          const users = req.user
+           res.send(users)
     }catch(err){
         res.status(500).send('Error occured ' +err.message)
     }
 })
 // supoose i check a specific user by email
+
+// suppose i make an api request of sending the connection request
+
+app.post('/SendFriendRequest' , ValidateToken ,  async(req,res)=>{
+
+     const {firstName} = req.user
+    try{
+        res.send(  firstName + ' Send Request')
+    }catch(err){
+        res.status(400).send("Error " + err.message)
+    }
+})
 
 app.get('/Login' ,async (req,res)=>{
 
