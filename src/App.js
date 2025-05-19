@@ -105,6 +105,22 @@ app.post('/SendFriendRequest' , ValidateToken ,  async(req,res)=>{
     }
 })
 
+// logout api
+app.post('/logout' ,ValidateToken , async(req,res)=>{
+    try{
+        const {_id} = req.user
+        console.log(_id);
+        const deleted = await Data.findByIdAndDelete(_id)
+        if(!deleted){
+            throw new Error('User not found')
+        }
+        
+              res.send('Logout successfully')
+    }catch(err){
+        res.status(400).send('Error ' + err.message)
+    }
+})
+
 app.get('/Login' ,async (req,res)=>{
 
     const emailId = req.body.email
