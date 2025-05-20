@@ -193,3 +193,7 @@
   - then after valid the user user can get data from server or update it or sending connection request
   - also use token expires when the token expire then user must need to login
   - work with jwt expire and also cookies expire
+
+# Diving into APi's and express Router()
+
+- we use to group multiple apis =>express.router this is because when we have multiple of apis and we write all of apis in app.js this is not  the well way so we need to arrange it in different groups for code better
