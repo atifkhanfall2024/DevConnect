@@ -23,7 +23,7 @@ if (!validator.isStrongPassword(passward)) {
   throw new Error("Password is not strong!");
 }
 
-   const result = await encrypt({passward:req.body.passward})
+   const result = await encrypt({passward})
   // console.log(result);
    const {firstName , email  , age , gender , photo , about , skills } = req.body
  
@@ -82,14 +82,8 @@ Auth.post('/login' , async(req,res)=>{
 
 Auth.post('/logout' , ValidateToken , async(req,res)=>{
     try{
-        const {_id} = req.user
-        console.log(_id);
-        const deleted = await Data.findByIdAndDelete(_id)
-        if(!deleted){
-            throw new Error('User not found')
-        }
-              res.clearCookie('token');
-              res.send('Logout successfully')
+      
+              res.clearCookie('token').send('Logout successfully');
     }catch(err){
         res.status(400).send('Error ' + err.message)
     }
