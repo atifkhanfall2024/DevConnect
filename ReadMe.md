@@ -197,3 +197,12 @@
 # Diving into APi's and express Router()
 
 - we use to group multiple apis =>express.router this is because when we have multiple of apis and we write all of apis in app.js this is not  the well way so we need to arrange it in different groups for code better
+
+## Done some imporatant apis with validations
+ ## connection request api
+    -  only interested and ignore will allowed
+    -  a person cannot send request to yourself 
+    -  when A send request to B then A cannot send back request to B and ALso Bcannot send request to A
+    -  suppose someone enter dummy id so what happen ?
+## updatepasswardapi
+## edit profile api

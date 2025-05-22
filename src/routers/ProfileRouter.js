@@ -42,7 +42,7 @@ const compare = await  verify.compare(req.body.passward , req.user.passward)
    if(!compare){
     throw new Error('Invalid passward')
    }
-   console.log(req.body.newpassward)
+   //console.log(req.body.newpassward)
    const newPass = req.body.newpassward
    // add new passward
    if(!validator.isStrongPassword(newPass)){

@@ -73,7 +73,7 @@ Auth.post('/login' , async(req,res)=>{
         const token = await jwt.sign({id:login._id} , process.env.PrivateKey , {expiresIn:'7d'})
 
           // now the above token is wrap inside cookies
-        res.cookie('token',token , { expires: new Date(Date.now() + 24 * 3600000)}) // cookies will changes with in 24 hours
+        res.cookie('token',token , { expires: new Date(Date.now() + 1 * 3600000)}) // cookies will changes with in 1 hours
         res.send(login.firstName   +  '   Login successfull ! ')
     }catch(err){
         res.status(500).send('Error Occured : '+err.message)
