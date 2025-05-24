@@ -22,6 +22,9 @@ const ConnectionModel = new mongoose.Schema({
     }
 } , {timestamps:true})
 
+ConnectionModel.index({senderid:1 ,recieverid:1})
+
 const Connect = new mongoose.model('Connection' , ConnectionModel)
+
 
 module.exports = Connect

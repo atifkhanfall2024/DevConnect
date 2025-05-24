@@ -206,3 +206,4 @@
     -  suppose someone enter dummy id so what happen ?
 ## updatepasswardapi
 ## edit profile api
+## compund index
