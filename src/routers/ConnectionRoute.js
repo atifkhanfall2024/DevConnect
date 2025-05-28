@@ -1,8 +1,10 @@
 const express = require('express')
 const ConnectionReq = express.Router()
+const mongoose = require('mongoose')
 const Connection = require('../models/connection')
 const User = require('../models/user')
 const {ValidateToken} = require('../middlewares/Adminauth')
+
 
 ConnectionReq.post('/request/send/:status/:recieverid' , ValidateToken , async(req,res)=>{
     try{
@@ -48,6 +50,47 @@ ConnectionReq.post('/request/send/:status/:recieverid' , ValidateToken , async(r
     }catch(err){
         res.status(400).json({message:err.message})
     }
+})
+
+ConnectionReq.post('/request/review/:status/:reqid' , ValidateToken  , async(req,res)=>{
+ 
+  try{
+    const loginuser = req.user
+   const Requestid = req.params.reqid
+     const status = req.params.status
+
+     const Allowed  = ['accepted' , 'rejected']
+     if(!Allowed.includes(status)){
+      return  res.status(400).json({message:'Invalid Status code'})
+     }
+
+     // handling request id 
+     console.log(Requestid);
+     console.log(loginuser._id);
+     
+     const ConnectionRequest = await Connection.findOne({
+        _id:Requestid ,
+        recieverid:loginuser._id,
+        status:'interested'
+        
+     })
+     
+    // console.log(ConnectionRequest);
+
+     if(!ConnectionRequest){
+        return res.status(400).json({message:'Request not found in database'})
+     }
+
+      ConnectionRequest.status = status
+
+      await ConnectionRequest.save()
+
+      res.send(loginuser.firstName + ' ' + status + ' Connection request ')
+
+  }catch(err){
+      res.status(400).send(err.message)
+  }
+
 })
 
 module.exports = ConnectionReq
