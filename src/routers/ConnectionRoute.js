@@ -64,9 +64,7 @@ ConnectionReq.post('/request/review/:status/:reqid' , ValidateToken  , async(req
       return  res.status(400).json({message:'Invalid Status code'})
      }
 
-     // handling request id 
-     console.log(Requestid);
-     console.log(loginuser._id);
+    
      
      const ConnectionRequest = await Connection.findOne({
         _id:Requestid ,

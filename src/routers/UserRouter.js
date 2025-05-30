@@ -14,7 +14,7 @@ UserRouter.get('/user/request/recieved' , ValidateToken , async(req,res)=>{
         }).populate('senderid' , ['firstName' , 'skills' , 'photo'])
 
         if(Reciever.length === 0){
-            res.status(400).json({message:"NO User request is Found"})
+          return  res.status(400).json({message:"NO User request is Found"})
         }
       
         res.send(Reciever)
@@ -26,7 +26,38 @@ UserRouter.get('/user/request/recieved' , ValidateToken , async(req,res)=>{
 } )
 
 
+UserRouter.get('/user/connections' , ValidateToken , async(req,res)=>{
 
+   try{
+        const LoginUser = req.user
+
+const ConnectionAccepted= await Connection.find({
+    $or:
+   [ {recieverid:LoginUser._id , status:"accepted"} ,
+    {senderid:LoginUser._id , status:"accepted"}
+   ]
+}).populate('senderid' , ['firstName' , 'skills' , 'photo' , 'age','about']) .populate('recieverid' ,['firstName' , 'skills' , 'photo' , 'age','about'] )
+
+// only need sender information
+
+const SenderandRecieverinfo = ConnectionAccepted.map((showinfo)=>{
+
+    if(showinfo.recieverid._id === LoginUser._id){
+        return showinfo.senderid
+    }
+    return showinfo.recieverid
+})
+
+if(!SenderandRecieverinfo){
+    res.json('No Matching Found')
+}
+res.send(SenderandRecieverinfo)
+   }catch(err){
+    res.status(400).send('Error ' + err.message)
+   }
+
+
+})
 
 
 module.exports = UserRouter

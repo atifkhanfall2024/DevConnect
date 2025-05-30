@@ -10,6 +10,7 @@ const ConnectionModel = new mongoose.Schema({
 
     recieverid:{
          type:mongoose.Schema.Types.ObjectId,
+         ref:"User",
         required:true
     } ,
 
