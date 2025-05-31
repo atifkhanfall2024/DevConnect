@@ -17,3 +17,4 @@
 ## UserRouter
 - get/user/request/recieved
 - get/user/connections
+- get/user/feed

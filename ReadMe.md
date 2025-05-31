@@ -212,3 +212,5 @@
 ## UserRouter
  - make api to get user who sending connection request  => user/request/recieved
  - get all the connections from db whos accepted 
+
+## feed api
