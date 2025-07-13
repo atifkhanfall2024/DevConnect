@@ -20,7 +20,7 @@ ProfileRoute.patch('/profile/edit' , ValidateToken , async(req,res)=>{
     
       try{
        await ProfileEdit(req)
-
+      
        const LoginUserData = req.user
       
    const data = await   Object.assign(LoginUserData, req.body);
@@ -37,6 +37,7 @@ ProfileRoute.patch('/profile/edit' , ValidateToken , async(req,res)=>{
 
 ProfileRoute.patch('/profile/passward' , ValidateToken , async(req,res)=>{
 try{
+
  
 const compare = await  verify.compare(req.body.passward , req.user.passward)
    if(!compare){

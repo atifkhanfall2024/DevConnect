@@ -44,7 +44,7 @@ if (!validator.isStrongPassword(passward)) {
     await  user.save()
    
 
-    res.send('User Signup successfully')
+    res.send( firstName + ' Signup successfully')
 }
 catch(err){
 res.status(500).send('Your Data is against Schema' + err.message)
@@ -70,7 +70,8 @@ Auth.post('/login' , async(req,res)=>{
 
         // here we need that when a user login then create an jwt token by server which is wrap inside token
         
-        const token = await jwt.sign({id:login._id} , process.env.PrivateKey , {expiresIn:'7d'})
+        const token = await jwt.sign({id:login._id} , process.env.PrivateKey , {expiresIn:'1d'})
+       // console.log(token);
 
           // now the above token is wrap inside cookies
         res.cookie('token',token , { expires: new Date(Date.now() + 1 * 3600000)}) // cookies will changes with in 1 hours

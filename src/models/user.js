@@ -39,13 +39,20 @@ const userSchema = new Mongoose.Schema({
     age: {
   type: Number,
   required: true,
+  // we use this min and max also and we create custom validation also 
   min:18,
   max:60,
+  validate(value){
+   if(value<18 || value > 60){
+    throw new Error('Age must be enter with in valid condition')
+   }
+  },
   trim:true
  
 },
 gender:{
 type:String,
+required:true,
  // creating ourown custom function
   validate(value){
     if(!['boy' ,'men' , 'women'].includes(value)){

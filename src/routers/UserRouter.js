@@ -38,16 +38,19 @@ const ConnectionAccepted= await Connection.find({
     {senderid:LoginUser._id , status:"accepted"}
    ]
 }).populate('senderid' , ['firstName' , 'skills' , 'photo' , 'age','about']) .populate('recieverid' ,['firstName' , 'skills' , 'photo' , 'age','about'] )
+//console.log(ConnectionAccepted);
 
 // only need sender information
+// console.log(LoginUser._id);
 
 const SenderandRecieverinfo = ConnectionAccepted.map((showinfo)=>{
 
-    if(showinfo.recieverid._id === LoginUser._id){
+    if(showinfo.recieverid._id.equals(LoginUser._id)){
         return showinfo.senderid
     }
     return showinfo.recieverid
 })
+//console.log(SenderandRecieverinfo);
 
 if(!SenderandRecieverinfo){
     res.json('No Matching Found')
@@ -72,7 +75,21 @@ UserRouter.get('/user/feed' , ValidateToken , async(req,res)=>{
 
    // console.log(LoginUser._id);
 // first we find that a user send request to whom or recieve request from whom
-
+/*
+const Users = await User.find({
+  $and: [
+    { _id: { $nin: Array.from(hindeUsersfromfeed) } },
+    { _id: { $ne: LoginUser._id } },
+    { age: { $gt: 23 } },                                // age > 23
+    { location: "Peshawar" },                            // exact match
+    { gender: "female" },                                // exact match
+    { skills: { $in: ["Node.js"] } }                     // skills contains "Node.js"
+  ]
+})
+.select('firstName about skills photo')
+.skip(skip)
+.limit(limit)
+*/
 const ConnectionRequestorResponse = await Connection.find({
      $or:[
         {senderid:LoginUser._id},
@@ -80,12 +97,15 @@ const ConnectionRequestorResponse = await Connection.find({
      ]
 }).select('senderid recieverid')
 
+//console.log(ConnectionRequestorResponse);
+// set will give only unique ids
 const hindeUsersfromfeed = new Set()
 ConnectionRequestorResponse.map((value)=>(
   hindeUsersfromfeed.add(  value.senderid.toString()),
    hindeUsersfromfeed.add(value.recieverid.toString())
     
 ))
+//console.log(hindeUsersfromfeed);
 
 // now  i fetch all information from database of user and strick checks on it that login user profile does not shown in feed api also the connection send or recieved also not shown 
 
@@ -95,7 +115,7 @@ const Users = await User.find({
         {_id:{$ne:LoginUser._id}},
         // we can set so many things here
        // {age:{$gt:23}}
-       {skills:{$in:'Node.js'}}
+      // {skills:{$in:'Node.js'}}
     ]
 }).select('firstName about skills photo').skip(skip).limit(limit)
 

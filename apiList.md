@@ -5,8 +5,8 @@
 
 ## Profile
  - get/profile/view
- - post/profile/update
- - post/profile/forgetpassward
+ - patch/profile/update
+ - patch/profile/forgetpassward
 
 ## connectionRequest
 - post/sendreq/intreseted
