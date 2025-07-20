@@ -13,7 +13,7 @@ const ValidateToken  = async(req,res,next)=>{
    
    const {token} = cookie
    if(!token){
-    throw new Error('Token is Invalid')
+    return   res.status(401).json({ message: "Unauthorized" });
    }
 
    // if token is present then verfiy it 

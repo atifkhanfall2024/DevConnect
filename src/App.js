@@ -7,9 +7,14 @@ const ProfileRoute = require('./routers/ProfileRouter')
 const ConnectionReq = require('./routers/ConnectionRoute')
 const UserRouter = require('./routers/UserRouter')
 require('dotenv').config(); 
+const cors = require('cors');
 const app = express()
 app.use(express.json())
 app.use(cook())
+app.use(cors({
+    origin:'http://localhost:5173',
+    credentials:true
+}))
 app.use('/',Auth)
 app.use('/' , ProfileRoute)
 app.use('/', ConnectionReq)

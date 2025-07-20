@@ -75,7 +75,8 @@ Auth.post('/login' , async(req,res)=>{
 
           // now the above token is wrap inside cookies
         res.cookie('token',token , { expires: new Date(Date.now() + 1 * 3600000)}) // cookies will changes with in 1 hours
-        res.send(login.firstName   +  '   Login successfull ! ')
+        res.send(login)
+      //  res.send(login.firstName   +  '   Login successfull ! ')
     }catch(err){
         res.status(500).send('Error Occured : '+err.message)
     }
