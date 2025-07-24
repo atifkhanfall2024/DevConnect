@@ -13,8 +13,10 @@ app.use(express.json())
 app.use(cook())
 app.use(cors({
     origin:'http://localhost:5173',
-    credentials:true
+    credentials:true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
 }))
+
 app.use('/',Auth)
 app.use('/' , ProfileRoute)
 app.use('/', ConnectionReq)

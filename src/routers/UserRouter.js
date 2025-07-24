@@ -12,7 +12,7 @@ UserRouter.get('/user/request/recieved' , ValidateToken , async(req,res)=>{
         const Reciever = await Connection.find({
             recieverid:LoginUser._id,
             status:'interested'
-        }).populate('senderid' , ['firstName' , 'skills' , 'photo'])
+        }).populate('senderid' , ['firstName' , 'skills' , 'photo' , 'about'])
 
         if(Reciever.length === 0){
           return  res.status(400).json({message:"NO User request is Found"})
