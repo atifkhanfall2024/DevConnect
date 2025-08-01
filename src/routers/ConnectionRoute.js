@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const Connection = require('../models/connection')
 const User = require('../models/user')
 const {ValidateToken} = require('../middlewares/Adminauth')
+const Sendemail = require('../utils/sessendemail')
 
 
 ConnectionReq.post('/request/send/:status/:recieverid' , ValidateToken , async(req,res)=>{
@@ -45,6 +46,9 @@ ConnectionReq.post('/request/send/:status/:recieverid' , ValidateToken , async(r
      }
 
         await model.save()
+      const check =  await Sendemail.run(`A new friend Request from ${req.user.firstName}` ,req.user.firstName+ ' has '+ status + ' the request gracefully  ' + Userid.firstName )
+      console.log('hi',check);
+
         res.send(req.user.firstName+ ' has '+ status + ' the request gracefully  ' + Userid.firstName)
 
     }catch(err){
