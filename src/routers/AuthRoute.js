@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const validator = require('validator')
 const {ValidateToken} = require('../middlewares/Adminauth')
+require('dotenv').config();
 
 
 

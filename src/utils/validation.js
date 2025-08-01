@@ -1,4 +1,5 @@
 const encrypted = require('bcrypt')
+require('dotenv').config();
 
 const IsValid = (req)=>{
      const {firstName} = req.body
