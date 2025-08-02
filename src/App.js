@@ -7,6 +7,7 @@ const ProfileRoute = require('./routers/ProfileRouter')
 const ConnectionReq = require('./routers/ConnectionRoute')
 const UserRouter = require('./routers/UserRouter')
 require('dotenv').config(); 
+require('./utils/nodecron')
 const cors = require('cors');
 const app = express()
 app.use(express.json())
