@@ -3,7 +3,7 @@ const Connect = require('../models/connection')
 const {subDays , endOfDay , startOfDay} = require('date-fns')
 const Sendemail  = require('./sessendemail')
 
-cron.schedule(' 17 6 * * * ' , async()=>{
+cron.schedule(' 0 8 * * * ' , async()=>{
   
     // first we check the connections that recieve and its status should be interested
 

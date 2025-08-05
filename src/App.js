@@ -6,6 +6,8 @@ const Auth = require('./routers/AuthRoute')
 const ProfileRoute = require('./routers/ProfileRouter')
 const ConnectionReq = require('./routers/ConnectionRoute')
 const UserRouter = require('./routers/UserRouter')
+const InitalizeSocket = require('./utils/socketio')
+const http = require('http')
 require('dotenv').config(); 
 require('./utils/nodecron')
 const cors = require('cors');
@@ -23,11 +25,14 @@ app.use('/' , ProfileRoute)
 app.use('/', ConnectionReq)
 app.use('/' , UserRouter)
 
+// making hhtp server
+const server = http.createServer(app)
+InitalizeSocket(server)
 
 
 ConnectDb().then(()=>{
     console.log('Connection is success');
-    app.listen(3000 , ()=>{
+    server.listen(3000 , ()=>{
         console.log('server is listening.........');
     })
 }).catch((err)=>{
