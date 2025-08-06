@@ -1,9 +1,11 @@
 const socket = require('socket.io')
 const {Chat} = require('../models/chat')
+const Connection = require('../models/connection')
 
 // securing our touserid and loginid that if some one also know about these ids then also he cannot be able to join the room
 
 const crypto = require('crypto')
+
 
 // secrue roomid
 
@@ -31,7 +33,11 @@ io.on('connection' , (socket)=>{
 
     socket.on('sendmessage' , async({name , loginuser , touserid , text})=>{
       try{
-
+           // check if these both or friend or not
+        const Check = await Connection.findOne({senderid:loginuser , recieverid:touserid , status:'accepted'})
+        if(!Check){
+            throw new Error('Connection not found') }
+     
         let chat = await Chat.findOne({
           participents: {$all:[loginuser , touserid]},
          })
