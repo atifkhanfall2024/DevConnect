@@ -9,8 +9,8 @@ Chats.get('/chat/:touserid' , ValidateToken , async(req,res)=>{
 
   try{
          const touserid = req.params.touserid
-         console.log(touserid);
-           console.log(req.user._id);
+         //console.log(touserid);
+          // console.log(req.user._id);
          const loginuser = req.user._id
   
  let chat = await Chat.findOne({
@@ -22,6 +22,8 @@ Chats.get('/chat/:touserid' , ValidateToken , async(req,res)=>{
                 messages:[]
             })
         }
+         
+        //console.log(chat);
 
         await chat.save()
 

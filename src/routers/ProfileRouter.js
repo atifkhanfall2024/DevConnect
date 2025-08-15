@@ -19,7 +19,9 @@ ProfileRoute.get('/profile/view'  , ValidateToken , async(req,res)=>{
 ProfileRoute.patch('/profile/edit' , ValidateToken , async(req,res)=>{
     
       try{
-       await ProfileEdit(req)
+      await ProfileEdit(req)
+
+    
       
        const LoginUserData = req.user
       
