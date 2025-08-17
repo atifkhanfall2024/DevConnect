@@ -12,6 +12,7 @@ require('dotenv').config();
 require('./utils/nodecron')
 const cors = require('cors');
 const Chats = require('./routers/Chat')
+const payment = require('./routers/Payment')
 const app = express()
 app.use(express.json())
 app.use(cook())
@@ -26,6 +27,7 @@ app.use('/' , ProfileRoute)
 app.use('/', ConnectionReq)
 app.use('/' , UserRouter)
 app.use('/' , Chats)
+app.use('/' , payment)
 
 // making hhtp server
 const server = http.createServer(app)

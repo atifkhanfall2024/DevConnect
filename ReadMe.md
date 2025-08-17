@@ -214,3 +214,7 @@
  - get all the connections from db whos accepted 
 
 ## feed api
+
+
+## Chat router using web sockets
+## payment gateway using stripe 
