@@ -36,6 +36,15 @@ const userSchema = new Mongoose.Schema({
       }
     }
    },
+   isPremium:{
+       type:Boolean,
+       default:false
+   },
+   Membershipss:{
+     type:String 
+
+
+   },
     age: {
   type: Number,
   required: true,
