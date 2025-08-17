@@ -118,7 +118,7 @@ const userDocs = await user.findOne({_id:findid.user})
 
 userDocs.isPremium = true
 userDocs.Membershipss = findid.productName
-await user.save()
+await userDocs.save()
 
 
 res.status(200).send('Webhook Success')
