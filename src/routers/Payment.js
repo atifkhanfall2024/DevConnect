@@ -68,7 +68,7 @@ payment.post('/payment/createId' , ValidateToken , async(req,res)=>{
 
 // now making other api of webhook to verify payment
 
-payment.post('/payment/webhook' , async(req,res)=>{
+payment.post('/payment/webhook'  , express.raw({ type: "application/json" }), async(req,res)=>{
   try{
        const sig = req.headers["stripe-signature"];
   const endpointSecret = process.env.Webhook_secret;
